@@ -23,4 +23,3 @@ class Enemy(AnimatedTile):
 		self.animate()
 		self.move()
 		self.reverse_image()
-		# finl cmmt
