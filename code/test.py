@@ -1,3 +1,4 @@
+from background import Background
 from pygame.locals import *
 import os
 from settings import * 
@@ -8,7 +9,6 @@ import pygame as pg
 pg.init()
 
 class Window:
-
     def __init__(self):
         # self.m1 = Game(0)
         self.screen = pg.display.set_mode((screen_width, screen_height))
@@ -23,10 +23,15 @@ class Window:
                        "white": (255, 255, 255),
                        "black": (0, 0, 0),
                        "brown": (153, 76, 0),
-                       "grey": (100, 100, 100)}
+                       "grey": (100, 100, 100),
+                       "orange":(173, 61, 21),
+                       "sand":(189, 126, 104)
+                       }
 
     def setup(self):
-        self.screen.fill(self.colors["black"])
+        BackGround = Background('../graphics/background_image.png', [0,0])
+        self.screen.fill(self.colors["orange"])
+        self.screen.blit(BackGround.image, BackGround.rect)
         pg.display.set_caption("Menu Test!")
 
     def text(self, message, text_color, x_pos, y_pos):
@@ -54,7 +59,7 @@ class Button(pg.sprite.Sprite):
         self.text_surf = window.font.render(text, True, window.colors["black"])
         self.image = pg.Surface((self.text_surf.get_width()+40,
                                  self.text_surf.get_height()+20))
-        self.image.fill(window.colors["white"])
+        self.image.fill(window.colors["sand"])
         # Now blit the text onto the self.image.
         self.image.blit(self.text_surf, (20, 10))
         self.rect = self.image.get_rect(topleft=pos)
@@ -68,12 +73,12 @@ def main():
     gui = pg.sprite.Group()
     # Instantiate some buttons.
     quit_button = Button(
-        pos=(window.rect.w/2 - 100, window.rect.h/1.5 - 25),
+        pos=(window.rect.w/2-40,window.rect.h/16*9),
         text="QUIT",
         window=window,
         )
     hello_button = Button(
-        pos=(window.rect.w/8, window.rect.h/2),
+        pos=(window.rect.w/2-50, window.rect.h/16*7),
         text="START",
         window=window,
         )
